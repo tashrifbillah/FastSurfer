@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Copyright 2019 Image Analysis Lab, German Center for Neurodegenerative Diseases (DZNE), Bonn
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,6 +78,8 @@ CLASS_NAMES = ["Left-Cerebral-White-Matter", "Left-Lateral-Ventricle", "Left-Inf
                "ctx-rh-pericalcarine", "ctx-rh-postcentral", "ctx-rh-posteriorcingulate", "ctx-rh-precentral",
                "ctx-rh-precuneus", "ctx-rh-superiorfrontal"]
 
+
+CLASS_NAMES = ["Brain"]
 
 def setup_options():
     # Training settings

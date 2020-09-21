@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2019 Image Analysis Lab, German Center for Neurodegenerative Diseases (DZNE), Bonn
 #
@@ -180,7 +181,7 @@ def fast_surfer_cnn(img_filename, save_as, args):
 
     # Axial View Testing
     params_network = {'num_channels': 7, 'num_filters': 64, 'kernel_h': 5, 'kernel_w': 5, 'stride_conv': 1, 'pool': 2,
-                      'stride_pool': 2, 'num_classes': 79, 'kernel_c': 1, 'kernel_d': 1}
+                      'stride_pool': 2, 'num_classes': 2, 'kernel_c': 1, 'kernel_d': 1}
 
     # Select the model
     model = FastSurferCNN(params_network)
@@ -248,7 +249,7 @@ def fast_surfer_cnn(img_filename, save_as, args):
     test_data_loader = DataLoader(dataset=test_dataset_coronal, batch_size=args.batch_size, shuffle=False)
 
     params_network = {'num_channels': 7, 'num_filters': 64, 'kernel_h': 5, 'kernel_w': 5, 'stride_conv': 1, 'pool': 2,
-                      'stride_pool': 2, 'num_classes': 79, 'kernel_c': 1, 'kernel_d': 1}
+                      'stride_pool': 2, 'num_classes': 2, 'kernel_c': 1, 'kernel_d': 1}
 
     # Select the model
 
@@ -313,7 +314,7 @@ def fast_surfer_cnn(img_filename, save_as, args):
     test_data_loader = DataLoader(dataset=test_dataset_sagittal, batch_size=args.batch_size, shuffle=False)
 
     params_network = {'num_channels': 7, 'num_filters': 64, 'kernel_h': 5, 'kernel_w': 5, 'stride_conv': 1, 'pool': 2,
-                      'stride_pool': 2, 'num_classes': 51, 'kernel_c': 1, 'kernel_d': 1}
+                      'stride_pool': 2, 'num_classes': 2, 'kernel_c': 1, 'kernel_d': 1}
 
     # Select the model
     model = FastSurferCNN(params_network)
@@ -506,9 +507,11 @@ if __name__ == "__main__":
             if options.csv_file:
 
                 dataset = current_subject.split("/")[-2]
-                invol = op.join(current_subject, options.iname)
-                logfile = op.join(options.output, dataset, subject, options.logfile)
-                save_file_name = op.join(options.output, dataset, subject, options.oname)
+                invol = glob.glob(op.join(current_subject, options.iname))[0]
+                # logfile = op.join(options.output, dataset, subject, options.logfile)
+                # save_file_name = op.join(options.output, dataset, subject, options.oname)
+                logfile = op.join(options.output, subject, options.logfile)
+                save_file_name = op.join(options.output, subject, options.oname)
 
             else:
 

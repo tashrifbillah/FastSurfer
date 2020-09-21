@@ -157,6 +157,8 @@ def map_label2aparc_aseg(mapped_aseg):
     :return:
     """
     aseg = np.zeros_like(mapped_aseg)
+    labels= np.array([0,1])
+    '''
     labels = np.array([0, 2, 4, 5, 7, 8, 10, 11, 12, 13, 14,
                        15, 16, 17, 18, 24, 26, 28, 31, 41, 43, 44,
                        46, 47, 49, 50, 51, 52, 53, 54, 58, 60, 63,
@@ -165,6 +167,7 @@ def map_label2aparc_aseg(mapped_aseg):
                        1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1034, 1035,
                        2002, 2005, 2010, 2012, 2013, 2014, 2016, 2017, 2021, 2022, 2023,
                        2024, 2025, 2028])
+    '''
     h, w, d = aseg.shape
 
     aseg = labels[mapped_aseg.ravel()]
@@ -215,6 +218,9 @@ def map_aparc_aseg2label(aseg, aseg_nocc=None):
     aseg[aseg_temp == 2021] = 2021
     aseg[aseg_temp == 2005] = 2005
 
+
+    labels= np.array([0,1])
+    '''
     labels = np.array([0, 2, 4, 5, 7, 8, 10, 11, 12, 13, 14,
                        15, 16, 17, 18, 24, 26, 28, 31, 41, 43, 44,
                        46, 47, 49, 50, 51, 52, 53, 54, 58, 60, 63,
@@ -223,7 +229,7 @@ def map_aparc_aseg2label(aseg, aseg_nocc=None):
                        1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1034, 1035,
                        2002, 2005, 2010, 2012, 2013, 2014, 2016, 2017, 2021, 2022, 2023,
                        2024, 2025, 2028])
-
+    '''
     h, w, d = aseg.shape
     lut_aseg = np.zeros(max(labels) + 1, dtype='int')
     for idx, value in enumerate(labels):
@@ -254,12 +260,15 @@ def map_aparc_aseg2label(aseg, aseg_nocc=None):
 
     cortical_label_mask = (aseg >= 2000) & (aseg <= 2999)
     aseg[cortical_label_mask] = aseg[cortical_label_mask] - 1000
-
+    
+    labels_sag= labels
+    '''
     labels_sag = np.array([0, 14, 15, 16, 24, 41, 43, 44, 46, 47, 49,
                            50, 51, 52, 53, 54, 58, 60, 63, 77, 1002,
                            1003, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014,
                            1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025,
                            1026, 1027, 1028, 1029, 1030, 1031, 1034, 1035])
+    '''
 
     h, w, d = aseg.shape
     lut_aseg = np.zeros(max(labels_sag) + 1, dtype='int')
@@ -282,6 +291,11 @@ def sagittal_coronal_remap_lookup(x):
     :return:
     """
     return {
+        0: 0,
+        1: 1,
+    }[x]
+    '''
+    return {
         2: 41,
         3: 42,
         4: 43,
@@ -298,7 +312,7 @@ def sagittal_coronal_remap_lookup(x):
         28: 60,
         31: 63,
         }[x]
-
+    '''
 
 def map_prediction_sagittal2full(prediction_sag, num_classes=79):
     """
@@ -317,12 +331,14 @@ def map_prediction_sagittal2full(prediction_sag, num_classes=79):
                                40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50], dtype=np.int16)
 
     else:
+        idx_list = np.asarray([0, 1], dtype=np.int16)
+        '''
         idx_list = np.asarray([0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1, 2, 3, 14, 15, 4, 16,
                                17, 18, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
                                20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
                                37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 20, 22, 27,
                                29, 30, 31, 33, 34, 38, 39, 40, 41, 42, 45], dtype=np.int16)
-
+        '''
     prediction_full = prediction_sag[:, idx_list, :, :]
     return prediction_full
 

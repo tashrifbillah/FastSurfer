@@ -1,0 +1,29 @@
+name: cuda9.0
+
+channels:
+  - pytorch
+  - conda-forge
+  
+dependencies:
+  - python=3.6
+  - numpy
+  - pyyaml
+  - scipy
+  - ipython
+  - mkl
+  - mkl-include
+  - ninja
+  - cython
+  - typing
+  - matplotlib
+  - h5py
+  - scikit-image
+  - pillow=6.1
+  - cudatoolkit=9.0
+  - "pytorch=1.1.0=py3.6_cuda9.0.176_cudnn7.5.1_0"
+  - torchvision=0.3.0
+  - scikit-sparse
+  - pip
+  - pip:
+    - nibabel==2.5.1
+

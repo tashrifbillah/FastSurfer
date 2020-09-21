@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2019 Image Analysis Lab, German Center for Neurodegenerative Diseases (DZNE), Bonn
 #

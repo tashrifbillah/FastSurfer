@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2019 Image Analysis Lab, German Center for Neurodegenerative Diseases (DZNE), Bonn
 #
@@ -45,7 +46,7 @@ class PopulationDataset:
 
         if params["csv_file"] is not None:
             with open(params["csv_file"], "r") as s_dirs:
-                self.subject_dirs = [line.strip() for line in s_dirs.readlines()]
+                self.subject_dirs = [join(self.data_path, line.strip()) for line in s_dirs.readlines()]
 
         else:
             self.search_pattern = join(self.data_path, params["pattern"])
@@ -77,10 +78,10 @@ class PopulationDataset:
                 print("Volume Nr: {} Processing MRI Data from {}/{}".format(idx, current_subject, self.orig_name))
 
                 # Load orig and aseg
-                orig = nib.load(join(current_subject, self.orig_name))
+                orig = nib.load(glob.glob(join(current_subject, self.orig_name))[0])
                 orig = np.asarray(orig.get_data(), dtype=np.uint8)
 
-                aseg = nib.load(join(current_subject, self.aparc_name))
+                aseg = nib.load(glob.glob(join(current_subject, self.aparc_name))[0])
 
                 print('Processing ground truth segmentation {}'.format(self.aparc_name))
                 aseg = np.asarray(aseg.get_data(), dtype=np.int16)
